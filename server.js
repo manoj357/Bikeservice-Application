@@ -18,10 +18,10 @@ connectdb();
 app.use(bodyparser.json())
 
 // Load routes
-const authLogin = require('./routes/auth/authLogin')
+//const authLogin = require('./routes/auth/authLogin')
+const authadmin=require('./routes/auth/authadmin')
 
 
-// Dev 
 if (process.env.NODE_ENV === 'development') {
 
     // client frontend
@@ -34,7 +34,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Use Routes
-app.use('/api/', authLogin)
+//app.use('/api/', authLogin)
+app.use('/api/',authadmin)
+
 
 
 app.use((req, res) => {

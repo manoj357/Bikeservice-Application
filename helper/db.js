@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
         useFindAndModify: false,
         useUnifiedTopology: true
     })
-    console.log(`mongodb connected  sucessfully`);
+    console.log(`mongodb connected  sucessfully${connection.connection.host}`);
  }
 
  module.exports= connectdb;
