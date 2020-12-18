@@ -1,6 +1,4 @@
-
-
-exports.ServiceControl =(req,res)=>{
-    const{owername,vechilename,vechileno,servicetype}=req.body;
-    console.log(owername,vechilename,vechileno,servicetype)
+exports.Servicecontrol=(req,res)=>{
+    const{ownername,vechilename,vechileno,servicetype}=req.body;
+    console.log(ownername,vechilename,vechileno,servicetype)
 }

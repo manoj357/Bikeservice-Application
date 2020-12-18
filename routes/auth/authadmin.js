@@ -1,10 +1,10 @@
 const express=require('express')
-const {AdminContoller} =require ('../controllers/Admincontrol')
+const {AdminController} =require ('../controllers/Admincontrol')
 const router =express.Router();
 
 
 
 
-router.post('/register',AdminContoller)
+router.post('/adminregister',AdminController)
 
 module.exports=router

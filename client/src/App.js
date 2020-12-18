@@ -1,13 +1,14 @@
 import React from 'react';
 
+//pages
+import Home from './components/pages/home'
 //dashboard
-//import Register from './components/user/Login'
-import Home from './components/user/resetpassword'
+import Register from './components/Dashboard/userdashboard'
 
 function App() {
   return (
     <div className="App">
-      <Home/>
+    <Home/>
      
     </div>
   );
