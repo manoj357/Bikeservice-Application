@@ -1,4 +1,5 @@
 const mongoose =require('mongoose')
+
 const AdminSchema=mongoose.Schema({
     name:{
         type:String,
@@ -23,5 +24,7 @@ const AdminSchema=mongoose.Schema({
         type:Date,
         default:Date.now()
     }
+    
 })
+
 module.exports = mongoose.model("Admin",AdminSchema)

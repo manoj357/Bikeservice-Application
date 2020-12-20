@@ -6,7 +6,7 @@ function Admindashboard(){
     return(
         <div class="main-2">
             <header>              
-                <nav class="flex items-center justify-between flex-wrap bg-indigo-400 p-6">
+                <nav class="flex items-center justify-between flex-wrap bg-indigo-400">
                       <div class="flex items-center flex-shrink-0  mr-6">
                           <span class="font-semibold text-3xl  font-mono text-black">Autosparez</span>
                       </div>
