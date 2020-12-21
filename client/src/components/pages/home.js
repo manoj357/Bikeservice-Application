@@ -1,61 +1,64 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 
 function Home() {
     return(
+    
+
         <div>
-        <div class="text-Black bg-indigo-500 bg-opacity-70">
+        <div className="text-Black bg-indigo-500 bg-opacity-70">
             
-                    <div class="container mx-auto px-6 py-2 flex justify-between items-center">
-                          <a href="#" class="font-bold text-2xl font-mono  lg:text-4xl">
+                    <div className="container mx-auto px-6 py-2 flex justify-between items-center">
+                          <a href="/" className="font-bold text-2xl font-mono  lg:text-4xl">
                             Autosparez
                           </a>
                     </div>
              
              </div>
-             <div class="py-20 hero bg-indigo-500">
-    <div class="container mx-auto px-6">
-      <div class="text-3xl font-bold mb-2 text-white font-mono">
+             <div className="py-20 hero bg-indigo-500">
+    <div className="container mx-auto px-6">
+      <div className="text-3xl font-bold mb-2 text-white font-mono">
          Book your vechile service in Easy way!!
       </div>
-      <div class="text-2xl mb-8 text-gray-200">
+      <div className="text-2xl mb-8 text-gray-200">
        And 20% disscount for first service
       </div>
-      <button class="transform hover:scale-110 transition duration-300 ease-in-out bg-white font-bold rounded-full py-6 px-8 shadow-lg uppercase tracking-wider">
+      <Link to="/register" className="transform hover:scale-110 transition duration-300 ease-in-out bg-white font-bold rounded-full py-6 px-8 shadow-lg uppercase tracking-wider">
         Get Started
-      </button>
+      </Link>
     </div>
   
 
     </div>
-    <section class="container mx-auto px-6 py-10">
-    <h2 class="text-3xl font-bold text-center text-gray-800 mb-0">
+    <section className="container mx-auto px-6 py-10">
+    <h2 className="text-3xl font-bold text-center text-gray-800 mb-0">
       Features
     </h2><br/>
-    <div class="flex items-center flex-wrap mb-10">
-      <div class="w-full md:w-1/2 px-4">
-        <h4 class="text-2xl text-gray-800 font-bold mb-3">
+    <div className="flex items-center flex-wrap mb-10">
+      <div className="w-full md:w-1/2 px-4">
+        <h4 className="text-2xl text-gray-800 font-bold mb-3">
          Modifications
         </h4>
-        <p class="text-gray-600 mb-8 text-xl">
+        <p className="text-gray-600 mb-8 text-xl">
         we modify different types of bikes and give them  a beautiful personlaity 
         and we have vintage bike collections . . . .
         </p>
       </div>
-      <div class="w-full md:w-1/2 px-4">
+      <div className="w-full md:w-1/2 px-4">
         <img src="assets/bike.jpg" alt="responsive"/>
       </div>
     </div>
-    <div class="flex items-center flex-wrap mb-20">
-      <div class="w-full md:w-1/2 px-4">
+    <div className="flex items-center flex-wrap mb-20">
+      <div className="w-full md:w-1/2 px-4">
         <img src="assets/image2.jpg" alt="component-friendly"/>
       </div>
-      <div class="w-full md:w-1/2 px-4">
-        <h4 class="text-2xl text-gray-800 font-bold mb-3">
+      <div className="w-full md:w-1/2 px-4">
+        <h4 className="text-2xl text-gray-800 font-bold mb-3">
           Be With us
         </h4>
-        <p class="text-gray-600 mb-8 text-xl">
+        <p className="text-gray-600 mb-8 text-xl">
             We takecare of your vechiles and provide
             all kind of Services. to Know more 
             about us Keep Signup  .  .  .  .
@@ -65,38 +68,38 @@ function Home() {
     </div>
    
     </section>
-    <footer class="bg-indigo-500">
-    <div class="container mx-auto px-6 pt-10 pb-6">
-      <div class="flex flex-wrap">
+    <footer className="bg-indigo-500">
+    <div className="container mx-auto px-6 pt-10 pb-6">
+      <div className="flex flex-wrap">
         
-        <div class="w-full md:w-1/4 text-center md:text-left">
-          <h5 class="uppercase mb-6 font-bold">Social</h5>
-          <ul class="mb-4">
-            <li class="mt-2">
-              <a href="#" class="hover:underline text-white hover:text-orange-500">Facebook</a>
+        <div className="w-full md:w-1/4 text-center md:text-left">
+          <h5 className="uppercase mb-6 font-bold">Social</h5>
+          <ul className="mb-4">
+            <li className="mt-2">
+              <a href="/" className="hover:underline text-white hover:text-orange-500">Facebook</a>
             </li>
-            <li class="mt-2">
-              <a href="#" class="hover:underline text-white hover:text-orange-500">Linkedin</a>
+            <li className="mt-2">
+              <a href="/" className="hover:underline text-white hover:text-orange-500">Linkedin</a>
             </li>
-            <li class="mt-2">
-              <a href="#" class="hover:underline text-white hover:text-orange-500">Twitter</a>
+            <li className="mt-2">
+              <a href="/" className="hover:underline text-white hover:text-orange-500">Twitter</a>
             </li>
           </ul>
         </div>
-        <div class="w-full md:w-1/4 text-center md:text-left">
-          <h5 class="uppercase mb-6 font-bold">Company</h5>
-          <ul class="mb-4">
-            <li class="mt-2">
-              <a href="#" class="hover:underline text-white hover:text-orange-500">Autosparez Login</a>
+        <div className="w-full md:w-1/4 text-center md:text-left">
+          <h5 className="uppercase mb-6 font-bold">Company</h5>
+          <ul className="mb-4">
+            <li className="mt-2">
+              <Link to="/adminlogin" className="hover:underline text-white hover:text-orange-500">Autosparez Login</Link>
             </li>
            
-            <li class="mt-2">
-              <a href="#" class="hover:underline text-white hover:text-orange-500">policies</a>
+            <li className="mt-2">
+              <a href="/" className="hover:underline text-white hover:text-orange-500">policies</a>
             </li>
           </ul>
         </div>
-        <div class="w-full md:w-1/4  text-center md:text-left" >
-        <h5 class="uppercase  font-bold">Contact us</h5>
+        <div className="w-full md:w-1/4  text-center md:text-left" >
+        <h5 className="uppercase  font-bold">Contact us</h5>
         <form className='w-full flex-1  text-indigo-500' >
                                                        <div className='mx-auto max-w-xs relative ' >
                                                              <input
@@ -118,7 +121,7 @@ function Home() {
                                                              </textarea>
                                                              <button
                                                                type='submit'
-                                                                className='mt-5 tracking-wide font-semibold bg-white text-black w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-non' >
+                                                                classNameName='mt-5 tracking-wide font-semibold bg-white text-black w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-non' >
 
                                                                Submit
                 
@@ -126,8 +129,8 @@ function Home() {
                                                              </div></form>
 
         </div>
-        <div class="w-full md:w-1/4 text-center ">
-        <h5 class="uppercase mb-6 text-xl font-bold font-mono md:mt-20 md:float-right">Autosparez Founded by<br/>-xxxnshb</h5>
+        <div className="w-full md:w-1/4 text-center ">
+        <h5 className="uppercase mb-6 text-xl font-bold font-mono md:mt-20 md:float-right">Autosparez Founded by<br/>-xxxnshb</h5>
        
         </div>
       </div>
@@ -137,7 +140,7 @@ function Home() {
  
     </div>
            
-         
+    
        )
 }
 export default Home

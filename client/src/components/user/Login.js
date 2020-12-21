@@ -1,10 +1,12 @@
 import React,{useState} from 'react'
-import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
-
 import { Link, Redirect } from 'react-router-dom';
+import { authenticate,isAuth } from '../../context/auth';
+import axios from 'axios'
+import {toast,ToastContainer} from 'react-toastify'
 
-const Login = () => {
+
+
+const Login = ({history}) => {
   const [formData, setFormData] = useState({
     email: '',
     password1: '',
@@ -14,13 +16,52 @@ const Login = () => {
   const handleChange = text => e => {
     setFormData({ ...formData, [text]: e.target.value });
   };
-
+ 
+  const handleSubmit = e => {
+   
+    e.preventDefault();
+    if (email && password1) {
+      setFormData({ ...formData, textChange: 'Submitting' });
+      axios
+        .post(`http://localhost:5000/api/login`, {
+          email,
+          password: password1
+        })
+        .then(res => {
+         authenticate(res, () => {
+            setFormData({
+              ...formData,
+              email: '',
+              password1: '',
+              textChange: 'Submitted'
+            });
+            isAuth() 
+               history.push('/userdashboard')
+             
+           
+          });
+        })
+        .catch(err => {
+          setFormData({
+            ...formData,
+            email: '',
+            password1: '',
+            textChange: 'Sign In'
+          });
+          console.log(err.response);
+          toast.error(err.response.data.errors);
+        });
+    } else {
+      toast.error('Please fill all fields');
+    }
+  };
   
 return(
 
 
             <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
-              
+                {isAuth() ? <Redirect to='/' /> : null}
+                <ToastContainer />
             <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
               <div className='mt-12 flex flex-col items-center'>
                 <h1 className='text-2xl xl:text-3xl font-bold text-indigo-500'>
@@ -43,7 +84,7 @@ return(
                     </div>
                   </div>
                   <form
-                    className='mx-auto max-w-xs relative '
+                    className='mx-auto max-w-xs relative ' onSubmit={handleSubmit}
                   
                   >
                     <input
@@ -70,10 +111,10 @@ return(
                       <span className='ml-3'>Sign In</span>
                     </button><br/>
                     <Link
-                      to='/forget'
+                      to='/forgetpassword'
                       className='no-underline hover:underline text-indigo-500 text-md text-right absolute right-0  mt-2'
                     >
-                      Forget password?
+                      Forget password
                     </Link>
                   </form>
                 </div>

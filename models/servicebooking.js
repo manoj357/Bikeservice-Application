@@ -2,17 +2,17 @@ const  mongoose =require('mongoose');
 const { model } = require('./user');
 
 const ServiceSchema = mongoose.Schema({
-    Ownername:{
+    ownername:{
         type:String,
         required:true
 
     },
 
-    Vechilename:{
+    vechilename:{
         type:String,
         required:true
     },
-    Vechilenumber:{
+    vechileno:{
         type:Number,
         
 

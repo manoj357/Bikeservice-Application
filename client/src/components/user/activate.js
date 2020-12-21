@@ -12,6 +12,7 @@ const Activate = ({ match }) => {
     show: true
   });
 
+
   useEffect(() => {
     let token = match.params.token;
     let { name } = jwt.decode(token);
@@ -28,7 +29,7 @@ const Activate = ({ match }) => {
     e.preventDefault();
 
     axios
-      .post(`http://localhost:5000/api//activate`, {
+      .post(`http://localhost:5000/api/activate`, {
         token
       })
       .then(res => {

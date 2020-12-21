@@ -13,16 +13,9 @@ import {Redirect} from 'react-router-dom'
         })
         const [loggedOut, setLoggedOut] = useState(false)
 
-  const logout = () => {
-    localStorage.removeItem("whpf_user")
-    setLoggedOut(true)
+ 
 
-  };
-
-  if (loggedOut) {
-    return <Redirect to="/home" push={true} />
-  }
-        
+     
     return(
         <div class="user">
             <header>              
@@ -36,7 +29,7 @@ import {Redirect} from 'react-router-dom'
 
                          <div class="hidden w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="menu">
                                <div class="lg:flex-grow mr-0">
-                                  <button   onClick={logout}
+                                  <button   
                                     
                   class="block mt-5  lg:inline-block lg:float-right lg:mt-0 text-black font-semibold text-xl hover:text-white ">
                                         Logout

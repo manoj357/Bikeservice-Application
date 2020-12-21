@@ -1,5 +1,5 @@
 const User= require('../../models/user');
-const {genSalt,hash} =require('bcryptjs');
+const bcrypt=require('bcryptjs');
 const {validationResult}=require('express-validator')
 const jwt = require('jsonwebtoken');
 const nodemailer =require('nodemailer');
@@ -27,7 +27,8 @@ exports.Logincontrol = (req, res) => {
         });
       }
     });
-
+    
+  
     //activation token
     const token = jwt.sign(
       {
@@ -89,6 +90,7 @@ exports.Logincontrol = (req, res) => {
 exports.activationController = (req, res) => {
   const { token } = req.body;
 
+
   if (token) {
     jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, (err, decoded) => {
       if (err) {
@@ -98,12 +100,12 @@ exports.activationController = (req, res) => {
         });
       } else {
         const { name, email, password } = jwt.decode(token);
-
+        var hash= bcrypt.hash(password,10)
         console.log(email);
         const user = new User({
           name,
           email,
-          password
+          password:hash
         });
 
         user.save((err, user) => {

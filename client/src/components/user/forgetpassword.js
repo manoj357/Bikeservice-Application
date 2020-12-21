@@ -1,21 +1,23 @@
-import React from 'react';
+import React,{useState} from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios'
 
-
-const ForgetPassword = ({history}) => {
+const ForgetPassword = () => {
   const [formData, setFormData] = useState({
     email: '',
     textChange: 'Submit'
   });
-  const { email } = formData;
+  const { email, textChange } = formData;
   const handleChange = text => e => {
     setFormData({ ...formData, [text]: e.target.value });
   };
+ 
   const handleSubmit = e => {
     e.preventDefault();
     if (email) {
-      setFormData({ ...formData });
+      setFormData({ ...formData, textChange: 'Submitting' });
       axios
-        .put(`http://localhost:5000/api/forgotpassword`, {
+        .put(`http://localhost:5000/api/forgetpassword`, {
           email
         })
         .then(res => {
@@ -29,13 +31,13 @@ const ForgetPassword = ({history}) => {
         })
         .catch(err => {
         console.log(err.response)
-          toast.error(err.response.data.error);
+          toast.error(err.response.data.errors);
         });
     } else {
       toast.error('Please fill all fields');
     }
   };
-
+    
   return (
         <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
                    <ToastContainer />
@@ -50,7 +52,7 @@ const ForgetPassword = ({history}) => {
                                  <div className='w-full flex-1 mt-8 text-indigo-500'>
               
                                       <form
-                                        className='mx-auto max-w-xs relative ' onSubmit={handleSubmit}>
+                                        className='mx-auto max-w-xs relative ' onSubmit={handleSubmit} >
                                             <input
                                               className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
                                               type='email'
@@ -61,7 +63,7 @@ const ForgetPassword = ({history}) => {
                                                type='submit'
                                                className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none' >
                                                   <i className='fas fa-sign-in-alt  w-6  -ml-2' />
-                                                  <span className='ml-3'>Submit</span>
+                                                  <span className='ml-3'>{textChange}</span>
                                                </button>
                                           </form>
                                    </div>
