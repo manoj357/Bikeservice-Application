@@ -184,7 +184,7 @@ exports.signinController = (req, res) => {
 };
 
 //forget password
-exports.forgotPasswordController = (req, res) => {
+exports.forgotPasswordController = async(req, res) => {
   const { email } = req.body;
   const errors = validationResult(req);
 
@@ -278,7 +278,7 @@ exports.forgotPasswordController = (req, res) => {
 
 
 
-exports.resetPasswordController = (req, res) => {
+exports.resetPasswordController = async(req, res) => {
   const { resetPasswordLink, newPassword } = req.body;
 
   const errors = validationResult(req);
@@ -344,4 +344,3 @@ exports.requireSignin = expressJwt({
   
   
 })
-

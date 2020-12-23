@@ -1,15 +1,55 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
-
+import {toast,ToastContainer} from 'react-toastify'
+import axios from 'axios'
 
 
 function Home() {
+ const resetForm=()=>{
+    document.getElementById('contact-form').reset();
+}
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+   message:''
+  });
+
+  const { name, email, message} = formData;
+  const handleChange = text => e => {
+    setFormData({ ...formData, [text]: e.target.value });
+  };
+
+
+ const handleSubmit=(e)=> {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    axios({
+        method: "POST", 
+        url:"http://localhost:5000/api/contactus", 
+        data: {
+            name: name,   
+            email: email,  
+            messsage: message
+        }
+    }).then((response)=>{
+        if (response.data.msg === 'success'){
+            toast.success("Message Sent."); 
+            resetForm()
+        }else if(response.data.msg === 'fail'){
+          toast.error("Message failed to send.")
+        }
+    })
+}
+
     return(
     
 
         <div>
         <div className="text-Black bg-indigo-500 bg-opacity-70">
-            
+           
                     <div className="container mx-auto px-6 py-2 flex justify-between items-center">
                           <a href="/" className="font-bold text-2xl font-mono  lg:text-4xl">
                             Autosparez
@@ -25,7 +65,7 @@ function Home() {
       <div className="text-2xl mb-8 text-gray-200">
        And 20% disscount for first service
       </div>
-      <Link to="/register" className="transform hover:scale-110 transition duration-300 ease-in-out bg-white font-bold rounded-full py-6 px-8 shadow-lg uppercase tracking-wider">
+      <Link to="/login" className="transform hover:scale-110 transition duration-300 ease-in-out bg-white font-bold rounded-full py-6 px-8 shadow-lg uppercase tracking-wider">
         Get Started
       </Link>
     </div>
@@ -90,9 +130,9 @@ function Home() {
           <h5 className="uppercase mb-6 font-bold">Company</h5>
           <ul className="mb-4">
             <li className="mt-2">
-              <Link to="/autosparezlogin" className="hover:underline text-white hover:text-orange-500">Autosparez Login</Link>
+              <Link to="/login" className="hover:underline text-white hover:text-orange-500">Autosparez Login</Link>
             </li>
-           
+            <ToastContainer/>
             <li className="mt-2">
               <a href="/" className="hover:underline text-white hover:text-orange-500">policies</a>
             </li>
@@ -100,28 +140,35 @@ function Home() {
         </div>
         <div className="w-full md:w-1/4  text-center md:text-left" >
         <h5 className="uppercase  font-bold">Contact us</h5>
-        <form className='w-full flex-1  text-indigo-500' >
+        <form className='w-full flex-1  text-indigo-500'onSubmit={handleSubmit} >
                                                        <div className='mx-auto max-w-xs relative ' >
                                                              <input
-                                                             className='mt-8 w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
+                                                             className='mt-8 w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-white text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
                                                               type='text'
                                                                placeholder='Name'
+                                                               id="name"
+                                                               onChange={handleChange('name')}
+                                                               value={name}
                  
                                                              />
 
                                                             <input
-                                                             className='mt-8 w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
+                                                             className='mt-8 w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-white text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
                                                               type='email'
                                                                placeholder='email'
+                                                               id="email"
+                                                               onChange={handleChange('email')}
+                                                               value={email}
                  
                                                              />
 
-                                                             <textarea placeholder="subject" className='mt-8 w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'>
+                                                             <textarea placeholder="subject" id="message"  onChange={handleChange('message')}
+                                                               value={message} className='mt-8 w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'>
                                                                
                                                              </textarea>
                                                              <button
                                                                type='submit'
-                                                                classNameName='mt-5 tracking-wide font-semibold bg-white text-black w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-non' >
+                                                                className='mt-5 tracking-wide font-semibold bg-white text-black w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-non' >
 
                                                                Submit
                 

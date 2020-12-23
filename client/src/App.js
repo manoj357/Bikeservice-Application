@@ -10,7 +10,7 @@ import Login from './components/user/Login'
 import Forgetpassword from './components/user/forgetpassword'
 import Resetpassword from './components/user/resetpassword'
 import Activate from './components/user/activate'
-import Adminlogin from './components/admin/adminlogin'
+
 
 //dashboard
 
@@ -23,20 +23,20 @@ import AdminRoute from './routers/adminroute'
 function App() {
   return (
     <div className="App">
-     
+   
       <BrowserRouter>
     
-      <Switch>
-      <Route exact path="/home"><Home/></Route>
+      <Switch> 
+      <Route exact path="/"><Home/></Route>
      <Route exact path="/login"><Login/></Route>
      <Route exact path="/register"><Register/></Route>
      <Route path='/users/password/reset/:token' exact render={props => <Resetpassword {...props} />} />
      <Route path='/users/activate/:token' exact render={props => <Activate {...props} />} />
-     <Route exact path="/autosparezlogin"><Adminlogin/></Route>
+    
      <Route exact path="/forgetpassword"><Forgetpassword/></Route>
      <PrivateRoute path="/userdashboard" exact component={Userdashboard} />
-     <AdminRoute  path="/adminprivate" exact component={Admindashbaord}/>
-   
+     <AdminRoute  path="/admin" exact component={Admindashbaord}/>
+      <Redirect to="/"/>
   
     
       </Switch>

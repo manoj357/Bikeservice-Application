@@ -19,8 +19,9 @@ app.use(bodyparser.json())
 
 // Load routes
 const authLogin = require('./routes/auth/authLogin')
-const authadmin=require('./routes/auth/authadmin')
 const authservice=require('./routes/auth/authservice')
+const servicedone =require('./routes/auth/servicedone')
+const contactus =require('./routes/auth/contact')
 
 
 if (process.env.NODE_ENV === 'development') {
@@ -36,9 +37,9 @@ if (process.env.NODE_ENV === 'development') {
 
 // Use Routes
 app.use('/api/', authLogin)
-app.use('/api/',authadmin)
+app.use('/api/',contactus)
 app.use('/api/',authservice)
-
+app.use('/api',servicedone)
 
 
 app.use((req, res) => {

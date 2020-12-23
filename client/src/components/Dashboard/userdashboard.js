@@ -2,12 +2,12 @@ import React,{useEffect,useState} from 'react'
 import './userdashboard.css'
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom'
 import jwt from 'jsonwebtoken';
 import {  isAuth, getCookie, signout } from '../../context/auth'
 
 
 const Userdashboard = ({history}) => {
+  const [todo, setTodo] = useState([]);
     const [formData, setFormData] = useState({
         ownername: '',
         email: '',
@@ -22,6 +22,7 @@ const Userdashboard = ({history}) => {
       const handleChange = text => e => {
         setFormData({ ...formData, [text]: e.target.value });
       };
+
     
   useEffect(() => {
     loadProfile();
@@ -48,7 +49,58 @@ const Userdashboard = ({history}) => {
         }
       });
   };
+  const handleSubmit = e => {
+    const token = getCookie('token');
+    console.log(token);
+    e.preventDefault();
+    setFormData({ ...formData, textChange: 'Submitting' });
+    setTodo([...todo,formData])
+    setFormData({
+      ownername: '',
+        email: '',
+        phno: '',
+      servicetype: '',
+      vechilename:'',
+      vechileno:''
+     })
+    axios.post('http://localhost:5000/api/service',{
+    ownername,
+    email,
+    phno,
+  servicetype,
+  vechilename,
+  vechileno,
+    })
+    
+    .then(res => {
+      setFormData({
+        ...formData,
+        ownername: '',
+        email: '',
+        phno: '',
+      servicetype: '',
+      vechilename:'',
+      vechileno:'',
+        textChange: 'submitted'
+      });
+
+      toast.success(res.data.message);
+    })
+    .catch(err => {
+      setFormData({
+        ...formData,
+       
+      });
+      console.log(err.response);
+      toast.error(err.response.data.errors);
+    }
+  
+     ) 
+    
+  }
+   
       
+
     
      
     return(
@@ -70,7 +122,7 @@ const Userdashboard = ({history}) => {
                                     onClick={() => {
                                         signout()
                                          
-                                         history.push('/')
+                                         history.push('/home')
                                        
                                       }}
                                     
@@ -91,7 +143,7 @@ const Userdashboard = ({history}) => {
                     <h1 className="text-Black font-mono text-center mt-8 font-bold text-xl">welcome to Autosparez !!</h1>
                     <div className='mt-12 flex flex-col items-center'>
                         
-                    <form className='w-full flex-1 mt-8 text-indigo-500' 
+                    <form className='w-full flex-1 mt-8 text-indigo-500 ' onSubmit={handleSubmit} 
                                                 >
                                                        <div className='mx-auto max-w-xs relative '>
                                                              <input
@@ -159,6 +211,22 @@ const Userdashboard = ({history}) => {
                     </div>
                     </div>
                 </div>
+
+
+                <div>
+                                   {todo.length === 0 ? (
+                                          <h4 style={{textAlign:"center",paddingTop:"90px"}}>No Bookings</h4>
+                                          ) : (
+                                         todo.map((todo) => (
+                                             <ul>
+                                               <li  Key={todo.id}style={{textAlign:"center"}}><h5> vechilename:{todo.vechilename},vechileno:{todo.vechileno},ownername:{todo.ownername},servicetype:{todo.servicetype}</h5></li>
+                                             </ul>
+                                         ))
+                                     )}
+                                     <button onClick={(e)=>{setTodo(e.target.value) }} className="bg-indigo-500" >CLEAR</button>
+                                    
+                               
+                             </div>
                
             </main>
  

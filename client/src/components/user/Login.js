@@ -35,9 +35,11 @@ const Login = ({history}) => {
               password1: '',
              
             });
-           isAuth() 
-           history.push('/')
-              
+            isAuth() && isAuth().role === 'admin'
+              ? history.push('/admin')
+              : history.push('/userdashboard');
+            
+              toast.success(`Hey ${res.data.user.name}, Welcome back!`);
            
           })
         })
@@ -61,7 +63,7 @@ return(
 
 
             <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
-                {isAuth() ? <Redirect to='/userdashboard' /> : null}
+                {isAuth() ? <Redirect to='/' /> : null}
                 <ToastContainer />
             <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
               <div className='mt-12 flex flex-col items-center'>

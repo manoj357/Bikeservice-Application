@@ -50,6 +50,8 @@ export const authenticate = (response, next) => {
     next();
 };
 
+
+
 // Access user info from localstorage
 export const isAuth = () => {
     if (window !== 'undefined') {
@@ -64,10 +66,10 @@ export const isAuth = () => {
     }
 };
 
-export const signout = next => {
+export const signout = () => {
     removeCookie('token');
     removeLocalStorage('user');
-     next()
+    
 };
 
 

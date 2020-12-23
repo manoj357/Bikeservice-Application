@@ -6,8 +6,8 @@ const nodemailer =require('nodemailer');
 
 
 router.post('/service',(req,res)=> {
-    const{ownername,vechilename,vechileno,servicetype}=req.body;
- const  service =  new Service({ownername,vechilename,vechileno,servicetype});
+    const{ownername,vechilename,vechileno,servicetype,email,phno}=req.body;
+ const  service =  new Service({ownername,vechilename,vechileno,servicetype,email,phno});
    
  
     
@@ -26,7 +26,7 @@ const transporter=nodemailer.createTransport({
     from: process.env.EMAIL_FROM,
     to: process.env.EMAIL_TO,
     subject: 'Autospartez customer booked for vechileservice',
-    text:`vechilename:${vechilename},ownernamee: ${ownername},vechileno: ${vechileno},servicetype:${servicetype}`
+    text:`vechilename:${vechilename},ownernamee: ${ownername},vechileno: ${vechileno},servicetype:${servicetype},email:${email},phno:${phno}`
   };
   transporter
   .sendMail(emailData)

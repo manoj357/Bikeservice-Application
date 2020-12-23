@@ -6,12 +6,12 @@ const AdminRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            isAuth()  ?(
+            isAuth() && isAuth().role === 'admin' ? (
                 <Component {...props} />
             ) : (
                 <Redirect
                     to={{
-                        pathname: '/autosparezdatacenter',
+                        pathname: '/login',
                         state: { from: props.location }
                     }}
                 />
@@ -19,4 +19,5 @@ const AdminRoute = ({ component: Component, ...rest }) => (
         }
     ></Route>
 );
-export default AdminRoute
+
+export default AdminRoute;

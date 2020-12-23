@@ -46,7 +46,7 @@ const ForgetPassword = () => {
                          <h1 className='text-2xl xl:text-3xl text-indigo-500 text-center font-bold font-mono'>Autosparez</h1>
                              <div className='mt-12 flex flex-col items-center'>
                                 
-                                    <h1 className='text-1xl xl:text-2xl font-bold font-mono'>
+                                    <h1 className='text-xl xl:text-2xl font-bold font-mono'>
                                          Forget Password
                                     </h1>
                                  <div className='w-full flex-1 mt-8 text-indigo-500'>
