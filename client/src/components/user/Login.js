@@ -18,7 +18,7 @@ const Login = ({history}) => {
   };
  
   const handleSubmit = e => {
-   
+    console.log();
     e.preventDefault();
     if (email && password1) {
       setFormData({ ...formData, textChange: 'Submitting' });
@@ -28,39 +28,40 @@ const Login = ({history}) => {
           password: password1
         })
         .then(res => {
-         authenticate(res, () => {
+          authenticate(res, () => {
             setFormData({
               ...formData,
               email: '',
               password1: '',
-              textChange: 'Submitted'
-            });
-            isAuth() 
-               history.push('/userdashboard')
              
+            });
+           isAuth() 
+           history.push('/')
+              
            
-          });
+          })
         })
         .catch(err => {
           setFormData({
             ...formData,
             email: '',
             password1: '',
-            textChange: 'Sign In'
+           
           });
           console.log(err.response);
-          toast.error(err.response.data.errors);
+         
+        
         });
     } else {
       toast.error('Please fill all fields');
     }
-  };
-  
+  }
+
 return(
 
 
             <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
-                {isAuth() ? <Redirect to='/' /> : null}
+                {isAuth() ? <Redirect to='/userdashboard' /> : null}
                 <ToastContainer />
             <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
               <div className='mt-12 flex flex-col items-center'>

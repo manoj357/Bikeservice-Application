@@ -69,7 +69,7 @@ function Home() {
    
     </section>
     <footer className="bg-indigo-500">
-    <div className="container mx-auto px-6 pt-10 pb-6">
+    <div className="container mx-auto px-6 pt-5 pb-6">
       <div className="flex flex-wrap">
         
         <div className="w-full md:w-1/4 text-center md:text-left">
@@ -90,7 +90,7 @@ function Home() {
           <h5 className="uppercase mb-6 font-bold">Company</h5>
           <ul className="mb-4">
             <li className="mt-2">
-              <Link to="/adminlogin" className="hover:underline text-white hover:text-orange-500">Autosparez Login</Link>
+              <Link to="/autosparezlogin" className="hover:underline text-white hover:text-orange-500">Autosparez Login</Link>
             </li>
            
             <li className="mt-2">

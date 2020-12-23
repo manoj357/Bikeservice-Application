@@ -1,8 +1,8 @@
 const User= require('../../models/user');
-const bcrypt=require('bcryptjs');
 const {validationResult}=require('express-validator')
 const jwt = require('jsonwebtoken');
 const nodemailer =require('nodemailer');
+const expressJwt = require('express-jwt');
 
 
 
@@ -100,12 +100,13 @@ exports.activationController = (req, res) => {
         });
       } else {
         const { name, email, password } = jwt.decode(token);
-        var hash= bcrypt.hash(password,10)
+       
+      
         console.log(email);
         const user = new User({
           name,
           email,
-          password:hash
+          password
         });
 
         user.save((err, user) => {
@@ -152,7 +153,7 @@ exports.signinController = (req, res) => {
         });
       }
       // authenticate
-      if (!user.validate(password)) {
+      if (!user.authenticate(password)) {
         return res.status(400).json({
           errors: 'Email and password do not match'
         });
@@ -167,7 +168,7 @@ exports.signinController = (req, res) => {
           expiresIn: '7d'
         }
       );
-      const { _id, name, email, role } = user;
+      const { _id, name, email,role } = user;
 
       return res.json({
         token,
@@ -215,7 +216,7 @@ exports.forgotPasswordController = (req, res) => {
         );
 
 
-        //forget password
+        //forget password verfication mail
         const transporter=nodemailer.createTransport({
           service:'gmail',
           auth:{
@@ -275,6 +276,8 @@ exports.forgotPasswordController = (req, res) => {
 
 //reset password Link
 
+
+
 exports.resetPasswordController = (req, res) => {
   const { resetPasswordLink, newPassword } = req.body;
 
@@ -287,7 +290,10 @@ exports.resetPasswordController = (req, res) => {
     });
   } else {
     if (resetPasswordLink) {
-      jwt.verify(resetPasswordLink, process.env.JWT_RESET_PASSWORD, function(err,decoded) {
+      jwt.verify(resetPasswordLink, process.env.JWT_RESET_PASSWORD, function(
+        err,
+        decoded
+      ) {
         if (err) {
           return res.status(400).json({
             error: 'Expired link. Try again'
@@ -328,4 +334,14 @@ exports.resetPasswordController = (req, res) => {
     }
   }
 };
+
+exports.requireSignin = expressJwt({
+  secret: process.env.JWT_SECRET,algorithms: ['HS256']
+ // req.user._id
+
+
+
+  
+  
+})
 

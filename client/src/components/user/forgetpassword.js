@@ -17,7 +17,7 @@ const ForgetPassword = () => {
     if (email) {
       setFormData({ ...formData, textChange: 'Submitting' });
       axios
-        .put(`http://localhost:5000/api/forgetpassword`, {
+        .post(`http://localhost:5000/api/forgetpassword`, {
           email
         })
         .then(res => {
@@ -31,7 +31,7 @@ const ForgetPassword = () => {
         })
         .catch(err => {
         console.log(err.response)
-          toast.error(err.response.data.errors);
+          toast.error(err.response.data.error);
         });
     } else {
       toast.error('Please fill all fields');

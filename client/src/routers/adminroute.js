@@ -1,24 +1,22 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { isAuth } from '../context/auth';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const AdminRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            isAuth() ? (
+            isAuth()  ?(
                 <Component {...props} />
             ) : (
                 <Redirect
                     to={{
                         pathname: '/autosparezdatacenter',
                         state: { from: props.location }
-                       
                     }}
                 />
             )
         }
     ></Route>
 );
-
-export default PrivateRoute;
+export default AdminRoute

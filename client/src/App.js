@@ -1,7 +1,7 @@
 import React from 'react';
-import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
-//import PrivateRoute from './routers/privateroute' 
+
 //pages
 import Home from './components/pages/home'
 //user
@@ -16,22 +16,28 @@ import Adminlogin from './components/admin/adminlogin'
 
 import Admindashbaord from './components/Dashboard/admindashboard' 
 import Userdashboard from './components/Dashboard/userdashboard';
+//routers
 import PrivateRoute from '././routers/privateroute'
+import AdminRoute from './routers/adminroute'
 
 function App() {
   return (
     <div className="App">
+     
       <BrowserRouter>
+    
       <Switch>
-       
+      <Route exact path="/home"><Home/></Route>
      <Route exact path="/login"><Login/></Route>
      <Route exact path="/register"><Register/></Route>
-     <Route exact path="/home"><Home/>  </Route>
+     <Route path='/users/password/reset/:token' exact render={props => <Resetpassword {...props} />} />
      <Route path='/users/activate/:token' exact render={props => <Activate {...props} />} />
-     <Route exact path="/adminlogin"><Adminlogin/></Route>
+     <Route exact path="/autosparezlogin"><Adminlogin/></Route>
      <Route exact path="/forgetpassword"><Forgetpassword/></Route>
-    <PrivateRoute exact path="/userdashboard"><Userdashboard/></PrivateRoute>
-    <PrivateRoute exact path="/admindashboard"><Admindashbaord/></PrivateRoute>
+     <PrivateRoute path="/userdashboard" exact component={Userdashboard} />
+     <AdminRoute  path="/adminprivate" exact component={Admindashbaord}/>
+   
+  
     
       </Switch>
      

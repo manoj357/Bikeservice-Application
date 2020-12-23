@@ -1,76 +1,90 @@
+const Admin =require('../../models/admin')
 const router =require('express').Router();
-const Admin=require('../../models/admin')
-const bcrypt =require('bcryptjs')
+const bcrypt=require('bcryptjs')
+const {validationResult}=require('express-validator')
+const jwt = require('jsonwebtoken');
 
 
 
 
-
-
-router.post('/adminregister', async(req,res)=> {
+router.post('/autosparezregister',async(req,res)=> {
     const{name,email,password}=req.body;
- const  admin =  new Admin({name,email,password});
+   
+    var hash= await  bcrypt.hash(password,10)
+ const admin =await new Admin({
+    name,
+    email,
+    password:hash
+  });
 
- admin.save(
-      
-    function (err){
-        if(err){
-            console.log(err)
-        }
-    else{
-        console.log('added sucessfully')
+  await admin.save((err, user) => {
+    if (err) {
+      console.log(err);
+      return res.status(401).json({
+        errors: 'error happened'
+      });
+    } else {
+      return res.json({
+        success: true,
+        message: admin,
+        message: 'Signup success'
+      });
     }
-           
-    })
+  });
 
    
 })
 
-router.post('/adminlogin',async(req,res)=> {
-    try {
-        var AdminData =await Admin.findOne({email:req.body.email})
-        if(!AdminData) {
-            return res.status(400).json("email not found")
-        }
-        var validpassword=await bcrypt.compare(req.body.password,AdminData.password)
-        if(!validpassword){
-            return res.status(400).json('password invalid')
-        }
-       var userToken=await jwt.sign({
-            email:AdminData.email
-        },process.env.JWT_SECRET
-        );
-        res.header('auth',userToken).send(userToken)
-        
-    } catch (err) {
-        res.status(400).json(err);
-        
-    }
 
-})
-const validAdmin=(req,res,next)=> {
-    var token=req.header('auth')
-    req.token=token;
-    next();
-}
-
-router.get('/admingetall',validAdmin,async(req,res)=> {
-    jwt.verify(res.token,process.env.JWT_SECRET,async (err,data)=>{
-        if(err) {
-            res.sendStatus(403)
-        }
-        else
+router.post ('/autosparezLogin',(req,res)=> {
+  const { email, password } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const firstError = errors.array().map(error => error.msg)[0];
+    return res.status(422).json({
+      errors: firstError
+    });
+  } else {
+    // check if user exist
+    Admin.findOne({
+      email
+    }).exec((err,admin) => {
+      if (err || !admin) {
+        return res.status(400).json({
+          errors: 'User with that email does not exist. Please signup'
+        });
+      }
+      // authenticate
+      if (!admin.validate(password)) {
+        return res.status(400).json({
+          errors: 'Email and password do not match'
+        });
+      }
+      // generate a token and send to admin
+      const token = jwt.sign(
         {
-            const data= await User.find();
-            res.json(data);
-
+          _id: admin._id
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: '7d'
         }
-    })
-  
+      );
+      const { _id, name, email } = admin;
+
+      return res.json({
+        token,
+        admin: {
+          _id,
+          name,
+          email,
+          
+        }
+      });
+    });
+  }
+
+
 
 })
-
-
-  
-
-module.exports =router;
+module.exports=router;

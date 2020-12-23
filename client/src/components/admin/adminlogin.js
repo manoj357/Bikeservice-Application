@@ -1,34 +1,68 @@
 import React,{useState} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import {isAuth,authenticate} from '../../context/auth'
+import {Redirect} from 'react-router-dom'
 
 
 
-const Adminlogin = () => {
+const Adminlogin = ({history}) => {
   const [formData, setFormData] = useState({
     email: '',
     password1: '',
+    textChange:'submit'
   
   });
-  const { email, password1, } = formData;
+  const { email, password1,textChange } = formData;
   const handleChange = text => e => {
     setFormData({ ...formData, [text]: e.target.value });
   };
-  const handleSubmit=e=> {
-    e.PreventDefault();
+  const handleSubmit = e => {
+    console.log();
+    e.preventDefault();
     if (email && password1) {
       setFormData({ ...formData, textChange: 'Submitting' });
-     
+      axios
+        .post(`http://localhost:5000/api/autosparezlogin`, {
+          email,
+          password: password1
+        })
+        .then(res => {
+          authenticate(res, () => {
+            setFormData({
+              ...formData,
+              email: '',
+              password1: '',
+             
+            });
+           isAuth() 
+           history.push('/')
+              
+           
+          })
+        })
+        .catch(err => {
+          setFormData({
+            ...formData,
+            email: '',
+            password1: '',
+           
+          });
+          console.log(err.response);
+         
+        
+        });
+    } else {
+      toast.error('Please fill all fields');
     }
-    toast.success('fields empty')
   }
-
   
 return(
 
 
             <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
-              <ToastContainer/>
+              {isAuth() ? <Redirect to='/Autosparezprivate'/> : null}
+                <ToastContainer />
             <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
               <div className='mt-12 flex flex-col items-center'>
                 <h1 className='text-2xl xl:text-3xl font-bold text-indigo-500'>
@@ -37,7 +71,7 @@ return(
                 
                    </div>
                   <form
-                    className='mx-auto max-w-xs relative '
+                    className='mx-auto max-w-xs relative ' onSubmit={handleSubmit}
                   
                   >
                     <input
@@ -61,7 +95,7 @@ return(
                       className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
                     >
                       <i className='fas fa-sign-in-alt  w-6  -ml-2' />
-                      <span className='ml-3'>Sign In</span>
+                      <span className='ml-3'>{textChange}</span>
                     </button><br/>
                    
                   </form>
