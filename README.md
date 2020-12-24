@@ -24,3 +24,7 @@ Delivery of serviced vehicle can be known when its done by tracking the status o
  userdashboard bookservice 
  know the status ofservice and previous booking
 
+### admin login 
+email:manojprabakarrr5@gmail.com
+password:prabakar9027
+

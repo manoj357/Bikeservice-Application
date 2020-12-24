@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'development') {
 // Use Routes
 app.use('/api/', authLogin)
 app.use('/api/',contactus)
-app.use('/api/',authservice)
+app.use('/api',authservice)
 app.use('/api',servicedone)
 
 

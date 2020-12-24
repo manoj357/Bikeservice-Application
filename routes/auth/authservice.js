@@ -7,7 +7,7 @@ const nodemailer =require('nodemailer');
 
 router.post('/service',(req,res)=> {
     const{ownername,vechilename,vechileno,servicetype,email,phno}=req.body;
- const  service =  new Service({ownername,vechilename,vechileno,servicetype,email,phno});
+    const  service =  new Service({ownername,vechilename,vechileno,servicetype,email,phno});
    
  
     
@@ -56,6 +56,20 @@ const transporter=nodemailer.createTransport({
     })
 })
    
+
+router.get("/servicebooking",  async (req, res) => {
+  try {
+    const users = await Service.find({}).sort({
+      date: -1,
+    });
+    res.json(users);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 
   module.exports=router;
