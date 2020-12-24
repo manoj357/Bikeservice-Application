@@ -27,13 +27,13 @@ function App() {
       <BrowserRouter>
     
       <Switch> 
-      <Route exact path="/"><Home/></Route>
-     <Route exact path="/login"><Login/></Route>
-     <Route exact path="/register"><Register/></Route>
+      <Route path='/' exact render={props => <Home {...props} />} />
+      <Route path='/login' exact render={props => <Login {...props} />} />
+      <Route path='/register' exact render={props => <Register {...props} />} />
      <Route path='/users/password/reset/:token' exact render={props => <Resetpassword {...props} />} />
      <Route path='/users/activate/:token' exact render={props => <Activate {...props} />} />
     
-     <Route exact path="/forgetpassword"><Forgetpassword/></Route>
+     <Route path='/forgetpassword' exact render={props => <Forgetpassword {...props} />} />
      <PrivateRoute path="/userdashboard" exact component={Userdashboard} />
      <AdminRoute  path="/admin" exact component={Admindashbaord}/>
       <Redirect to="/"/>
